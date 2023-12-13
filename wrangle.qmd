@@ -13,7 +13,7 @@ if (!require(librarian)){
   library(librarian)
 }
 
-librarian::shelf(tidyverse, RPostgres, here, janitor, parsedate, lubridate)
+librarian::shelf(tidyverse, here, janitor, parsedate, lubridate)
 
 ```
 

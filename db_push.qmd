@@ -1,0 +1,70 @@
+---
+title: "db_push"
+format: html
+editor: source
+---
+
+# Load Packages
+```{r}
+#| output: false
+if (!require(librarian)){
+  install.packages("librarian")
+  library(librarian)
+}
+
+librarian::shelf(RPostgres, DBI, tidyverse)
+
+```
+
+# Loop to Read in Data
+```{r}
+
+filenames <- gsub("\\.csv$","", list.files(here("data", "clean_tables")))
+
+for(i in filenames){
+  assign(i, read_csv(here("data", "clean_tables", paste(i, ".csv", sep="")), col_types = cols()))
+}
+
+
+```
+
+# connect to `RIBBiTR` database
+```{r}
+
+tryCatch({
+    drv <- dbDriver("Postgres")
+    print("Connecting to Database…")
+    connection <- dbConnect(drv, 
+                 dbname = Sys.getenv("aws_dbname"),
+                 host = Sys.getenv("aws_host"), 
+                 port = Sys.getenv("aws_port"),
+                 user = Sys.getenv("aws_user"), 
+                 password = Sys.getenv("aws_password"),
+                 timezone=NULL)
+    print("Database Connected!")
+    },
+    error=function(cond) {
+            print("Unable to connect to Database.")
+    })
+
+```
+
+
+# Push Tables
+```{r}
+
+# set schema path
+dbExecute(connection, "set search_path to survey_data")
+
+# rapi amp table
+dbWriteTable(connection, 'rapi_amp', rapi_amp, overwrite=T)
+
+# rasp amp table
+dbWriteTable(connection, 'rasp_amp', rasp_amp, overwrite=T)
+
+# amp_totals_gia table
+dbWriteTable(connection, 'amp_totals_gia', amp_totals_gia, overwrite=T)
+
+
+```
+
