@@ -95,7 +95,7 @@ total_tenn <- clean_tenn %>%
 ```{r}
 
 s_lep_pep <- clean_tenn %>% 
-  select(amp_id, c(temporin_1s:maldi_notes))
+  select(amp_id, c(temporin_1s:maldi_notes)) 
   
 
 ```
