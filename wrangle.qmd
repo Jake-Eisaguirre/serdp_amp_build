@@ -31,7 +31,8 @@ raw_tn_serdp <- read_csv(here("data", "raw", "serdpAMP_TN.csv"), col_types =cols
 ```
 
 
-# Clean Penn
+# Penn
+## Clean All Penn
 ```{r}
 
 clean_penn <- raw_penn_serdp %>% 
@@ -45,7 +46,12 @@ clean_penn <- raw_penn_serdp %>%
 
 ```
 
-# Clean Tenn
+## Total peptide table - Penn
+
+## Species Specific AMP - Penn
+
+# Tenn
+## Clean All Tenn
 ```{r}
 
 clean_tenn <- raw_tn_serdp %>% 
@@ -60,3 +66,6 @@ clean_tenn <- raw_tn_serdp %>%
 
 ```
 
+## Total peptide table - Tenn
+
+## Species Specific AMP - Tenn
