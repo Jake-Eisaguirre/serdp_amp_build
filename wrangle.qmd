@@ -100,3 +100,10 @@ s_lep_pep <- clean_tenn %>%
 
 ```
 
+# Combine Tenn and Penn total table
+```{r}
+
+combined_total <- rbind(total_penn, total_tenn)
+
+```
+
