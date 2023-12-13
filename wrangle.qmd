@@ -4,3 +4,57 @@ format: html
 editor: source
 ---
 
+# Load Packages
+
+```{r}
+#| output: false
+if (!require(librarian)){
+  install.packages("librarian")
+  library(librarian)
+}
+
+librarian::shelf(tidyverse, RPostgres, here, janitor)
+
+```
+
+# Load Data
+
+```{r}
+
+raw_penn_serdp <- read_csv(here("data", "raw", "SERDP_AMP.csv"), col_types = cols()) %>% 
+  clean_names()
+
+raw_tn_serdp <- read_csv(here("data", "raw", "serdpAMP_TN.csv"), col_types =cols()) %>% 
+  clean_names()
+
+
+```
+
+
+# Clean Penn
+```{r}
+
+clean_penn <- raw_penn_serdp %>% 
+  select(!c(date, site, dod_location, entry, day_night, dod_location_2, site_code, frog_id_x, frog_number, species_code,
+            time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
+            mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,
+            field_notes, number_of_mites, c(temp_gun:infected), c(sample_bd_ct:year), month, day, year_2, season, julian_date,
+            c(daily_avg_t:degreedays), censor, date_gia, water)) %>% 
+  rename(amp_id = swab_id)
+  
+
+```
+
+# Clean Tenn
+```{r}
+
+clean_tenn <- raw_tn_serdp %>% 
+  select(!c(date, site, dod_location, entry, day_night, dod_location_2, site_code, frog_id_x, frog_number, species_code,
+            time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
+            mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,field_notes,
+            number_of_mites,month, day, season, julian_date, censor, c(temp_gun:qpcr_neg_cont), frog_id_x, c(notes_y:year),
+            frog_id_y, c(sample_quality:sample_rerun), infected, c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water)) %>% 
+  rename(amp_id = swab_id)
+
+```
+
