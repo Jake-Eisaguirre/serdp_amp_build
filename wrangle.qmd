@@ -39,7 +39,7 @@ clean_penn <- raw_penn_serdp %>%
             time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
             mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,
             field_notes, number_of_mites, c(temp_gun:infected), c(sample_bd_ct:year), month, day, year_2, season, julian_date,
-            c(daily_avg_t:degreedays), censor, date_gia, water)) %>% 
+            c(daily_avg_t:degreedays), censor, water, c(slope:gia_notes), smi, gia_plate_pos_growth)) %>% 
   rename(amp_id = swab_id)
   
 
@@ -53,8 +53,10 @@ clean_tenn <- raw_tn_serdp %>%
             time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
             mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,field_notes,
             number_of_mites,month, day, season, julian_date, censor, c(temp_gun:qpcr_neg_cont), frog_id_x, c(notes_y:year),
-            frog_id_y, c(sample_quality:sample_rerun), infected, c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water)) %>% 
-  rename(amp_id = swab_id)
+            frog_id_y, c(sample_quality:sample_rerun), infected, c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water,
+            c(ic50:smi), gia, plate_pos, ehl_notes)) %>% 
+  rename(amp_id = swab_id,
+         gia_final_reading = final_reading)
 
 ```
 
