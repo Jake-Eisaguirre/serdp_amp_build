@@ -13,7 +13,7 @@ if (!require(librarian)){
   library(librarian)
 }
 
-librarian::shelf(tidyverse, RPostgres, here, janitor)
+librarian::shelf(tidyverse, RPostgres, here, janitor, parsedate, lubridate)
 
 ```
 
@@ -47,6 +47,13 @@ clean_penn <- raw_penn_serdp %>%
 ```
 
 ## Total peptide table - Penn
+```{r}
+
+total_penn <- clean_penn %>% 
+  select(amp_id, c(total_peptides_ug:percent_inhibition_500_ug_ml))
+
+```
+
 
 ## Species Specific AMP - Penn
 
@@ -62,10 +69,21 @@ clean_tenn <- raw_tn_serdp %>%
             frog_id_y, c(sample_quality:sample_rerun), infected, c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water,
             c(ic50:smi), gia, plate_pos, ehl_notes)) %>% 
   rename(amp_id = swab_id,
-         gia_final_reading = final_reading)
+         gia_final_reading = final_reading) 
+# %>% 
+#   mutate(date_gia = as.Date(as.character(date_gia)))
 
 ```
 
 ## Total peptide table - Tenn
+```{r}
+
+total_tenn <- clean_tenn %>% 
+  select(amp_id, total_peptides_ug, sample_bd, peptides_ug_gbw, peptides_ug_cm2, peptides_ug_ml_mucus, date_gia, 
+         gia_final_reading, c(percent_inhibition_16_ug_ml:percent_inhibition_500_ug_ml))
+  
+
+```
+
 
 ## Species Specific AMP - Tenn
