@@ -54,8 +54,13 @@ total_penn <- clean_penn %>%
 
 ```
 
-
 ## Species Specific AMP - Penn
+```{r}
+
+n_lep_pep <- clean_penn %>% 
+  select(c(amp_id:maldi_notes))
+
+```
 
 # Tenn
 ## Clean All Tenn
@@ -87,3 +92,11 @@ total_tenn <- clean_tenn %>%
 
 
 ## Species Specific AMP - Tenn
+```{r}
+
+s_lep_pep <- clean_tenn %>% 
+  select(amp_id, c(temporin_1s:maldi_notes))
+  
+
+```
+
