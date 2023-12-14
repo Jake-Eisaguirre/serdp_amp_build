@@ -58,12 +58,15 @@ dbExecute(connection, "set search_path to survey_data")
 
 # rapi amp table
 dbWriteTable(connection, 'rapi_amp', rapi_amp, overwrite=T)
+dbExecute(connection, "alter table rapi_amp add primary key(amp_id);")
 
 # rasp amp table
 dbWriteTable(connection, 'rasp_amp', rasp_amp, overwrite=T)
+dbExecute(connection, "alter table rasp_amp add primary key(amp_id);")
 
 # amp_totals_gia table
 dbWriteTable(connection, 'amp_totals_gia', amp_totals_gia, overwrite=T)
+dbExecute(connection, "alter table amp_totals_gia add primary key(amp_id);")
 
 
 ```
