@@ -36,11 +36,16 @@ raw_tn_serdp <- read_csv(here("data", "raw", "serdpAMP_TN.csv"), col_types =cols
 ```{r}
 
 clean_penn <- raw_penn_serdp %>% 
-  select(!c(date, site, dod_location, entry, day_night, dod_location_2, site_code, frog_id_x, frog_number, species_code,
-            time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
-            mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,
-            field_notes, number_of_mites, c(temp_gun:infected), c(sample_bd_ct:year), month, day, year_2, season, julian_date,
-            c(daily_avg_t:degreedays), censor, water, c(slope:gia_notes), smi, gia_plate_pos_growth)) %>% 
+  select(!c(date, site, dod_location, entry, day_night, dod_location_2, 
+            site_code, frog_id_x, frog_number, species_code,
+            time, microhabitat_notes, microhabitat_category, 
+            svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
+            mass_of_animal_g, bd_swab, mucosome, microbiome, 
+            am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,
+            field_notes, number_of_mites, c(temp_gun:infected), 
+            c(sample_bd_ct:year), month, day, year_2, season, julian_date,
+            c(daily_avg_t:degreedays), censor, water, 
+            c(slope:ic50), smi, gia_plate_pos_growth)) %>% 
   rename(amp_id = swab_id)
   
 
@@ -50,7 +55,7 @@ clean_penn <- raw_penn_serdp %>%
 ```{r}
 
 total_penn <- clean_penn %>% 
-  select(amp_id, c(total_peptides_ug:percent_inhibition_500_ug_ml))
+  select(amp_id, mic, c(total_peptides_ug:percent_inhibition_500_ug_ml), gia_notes)
 
 ```
 
@@ -68,12 +73,17 @@ write_csv(n_lep_pep, here("data", "clean_tables", "rapi_amp.csv"))
 ```{r}
 
 clean_tenn <- raw_tn_serdp %>% 
-  select(!c(date, site, dod_location, entry, day_night, dod_location_2, site_code, frog_id_x, frog_number, species_code,
-            time, microhabitat_notes, microhabitat_category, svl_mm, tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
-            mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, antibodies, body_temp, substrate_temp, sex, life_stage,field_notes,
-            number_of_mites,month, day, season, julian_date, censor, c(temp_gun:qpcr_neg_cont), frog_id_x, c(notes_y:year),
-            frog_id_y, c(sample_quality:sample_rerun), infected, c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water,
-            c(ic50:smi), gia, plate_pos, ehl_notes)) %>% 
+  select(!c(date, site, dod_location, entry, day_night, dod_location_2, 
+            site_code, frog_id_x, frog_number, species_code,
+            time, microhabitat_notes, microhabitat_category, svl_mm, 
+            tail_length_mm, mass_of_animal_in_bag, mass_of_bag_g,
+            mass_of_animal_g, bd_swab, mucosome, microbiome, am_ps, 
+            antibodies, body_temp, substrate_temp, sex, life_stage,field_notes,
+            number_of_mites,month, day, season, julian_date, censor, 
+            c(temp_gun:qpcr_neg_cont), frog_id_x, c(notes_y:year),
+            frog_id_y, c(sample_quality:sample_rerun), infected, 
+            c(sample_bd_ct:sample_bsal_swab_qty), c(location_y:x_y), water,
+            ic50, smi, x90_per_inhibitory, gia, plate_pos, ehl_notes)) %>% 
   rename(amp_id = swab_id,
          gia_final_reading = final_reading) 
 # %>% 
@@ -85,8 +95,10 @@ clean_tenn <- raw_tn_serdp %>%
 ```{r}
 
 total_tenn <- clean_tenn %>% 
-  select(amp_id, total_peptides_ug, sample_bd, peptides_ug_gbw, peptides_ug_cm2, peptides_ug_ml_mucus, date_gia, 
-         gia_final_reading, c(percent_inhibition_16_ug_ml:percent_inhibition_500_ug_ml))
+  select(amp_id, mic, total_peptides_ug, sample_bd, peptides_ug_gbw, 
+         peptides_ug_cm2, peptides_ug_ml_mucus, date_gia, 
+         gia_final_reading, c(percent_inhibition_16_ug_ml:percent_inhibition_500_ug_ml),
+         gia_notes)
   
 
 ```
