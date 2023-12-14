@@ -12,7 +12,7 @@ if (!require(librarian)){
   library(librarian)
 }
 
-librarian::shelf(RPostgres, DBI, tidyverse)
+librarian::shelf(RPostgres, DBI, tidyverse, here)
 
 ```
 
